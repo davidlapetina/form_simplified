@@ -42,6 +42,7 @@ class FormSimplified {
     return json.decode(await _parseFile(descriptionFileName));
   }
 
+  /// Return the Content of the form produced based on the Json descriptor file
   Future<WidgetBuilderResult> getFormContent(
       FormBuilderConfiguration configuration, BuildContext buildContext) async {
     var loadJson = await _loadJson(configuration.descriptionFileName);
@@ -63,11 +64,14 @@ class FormSimplified {
         child: fieldsContainer);
   }
 
+  /// For an easy integration, provide a default Widget that will display the form with a default layout.
+  /// This default layout consist of a Column with one Widget per row and the buttons (if any) as a last row in the Column
   Widget getFormWithDefaultLayout(FormBuilderConfiguration configuration) {
     return _FormWithDefaultLayout(configuration: configuration, easyForm: this);
   }
 }
 
+/// Container for the resulting generated widgets
 class WidgetBuilderResult {
   final Map<String, Widget> _fields;
   final Widget? _submit;
@@ -79,12 +83,17 @@ class WidgetBuilderResult {
         _submit = submit,
         _cancel = cancel;
 
+  /// Returns the cancel button if any
   Widget? get cancel => _cancel;
 
+  /// Returns the submit button if any
   Widget? get submit => _submit;
 
+  /// Returns the map with all the widget by their id.
+  /// The ids allow you to retrieve each widget easily in order to let you do the layout you desire
   Map<String, Widget> get fields => _fields;
 
+  /// Easy accessor to the list of widgets
   List<Widget> get widgets => _fields.values.toList();
 }
 

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:form_builder_validators/localization/l10n.dart';
 
+/// Type of the function to define in order to translate labels and texts
 typedef Translate = String Function(BuildContext buildContext, String fieldId, String labelOrKey);
-typedef OnSubmit = void Function(Map<String, String> formData);
+
+/// Type of the function to implement to get the content of the form upon validation
+typedef OnSubmit = void Function(Map<String, dynamic> formData);
+
+/// Type of the function to implement to get the content of the form upon cancelation
 typedef OnCancel = void Function();
 typedef FormKey = GlobalKey<FormBuilderState>;
 
@@ -13,16 +16,15 @@ class FormBuilderConfiguration {
   final Map<String, ValueChanged> _functionsByFieldId = {};
   final Map<String, FormFieldValidator> _extraValidatorsByFieldId = {};
   OnSubmit _onSubmit;
-  OnCancel _onCancel;
+  OnCancel? _onCancel;
   FormKey _formKey;
   String _descriptionFileName;
   AutovalidateMode _autovalidateMode;
   Translate _translate;
 
   FormBuilderConfiguration(
-      {required onSubmit,
-      required onCancel,
-      required formKey,
+      {required OnSubmit onSubmit, OnCancel? onCancel,
+      required FormKey formKey,
       AutovalidateMode? autovalidateMode,
       required descriptionFileName, Translate? translate})
       : _onSubmit = onSubmit,
@@ -44,9 +46,9 @@ class FormBuilderConfiguration {
 
   FormKey get formKey => _formKey;
 
-  Function get onCancel => _onCancel;
+  OnCancel? get onCancel => _onCancel;
 
-  Function get onSubmit => _onSubmit;
+  OnSubmit get onSubmit => _onSubmit;
 
   AutovalidateMode get autovalidateMode => _autovalidateMode;
 

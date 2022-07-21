@@ -1,8 +1,8 @@
-import 'package:form_simplified/form_simplified.dart';
-import 'package:form_simplified/form_builder_configuration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:form_simplified/form_builder_configuration.dart';
+import 'package:form_simplified/form_simplified.dart';
 import 'package:intl/intl.dart';
 
 class FormWidgetBuilder {
@@ -10,8 +10,9 @@ class FormWidgetBuilder {
 
   final dynamic _formData;
 
-  FormWidgetBuilder({required FormBuilderConfiguration configuration,
-    required dynamic formData})
+  FormWidgetBuilder(
+      {required FormBuilderConfiguration configuration,
+      required dynamic formData})
       : _configuration = configuration,
         _formData = formData;
 
@@ -101,9 +102,10 @@ class FormWidgetBuilder {
 
     Function onPressed = () {
       _configuration.formKey.currentState!.reset();
-      _configuration.onCancel();
+      if (_configuration.onCancel != null) {
+        _configuration.onCancel!();
+      }
     };
-
 
     return _buildButton(label, icon, onPressed);
   }
@@ -139,7 +141,7 @@ class FormWidgetBuilder {
       throw Exception('Need at least on option');
     }
     for (dynamic option in fieldOptions) {
-      dynamic? value = option['value'];
+      dynamic value = option['value'];
       String? text = option['label'];
       if (value == null || text == null) {
         throw Exception('value and text are mandatory');
@@ -156,15 +158,15 @@ class FormWidgetBuilder {
         options: options);
   }
 
-  Widget _buildChoiceChip(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildChoiceChip(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     List<FormBuilderChipOption<dynamic>> options = [];
     List<dynamic>? fieldOptions = fieldDescription['options'];
     if (fieldOptions == null || fieldOptions.isEmpty) {
       throw Exception('Need at least on option');
     }
     for (dynamic option in fieldOptions) {
-      dynamic? value = option['value'];
+      dynamic value = option['value'];
       String? text = option['label'];
       if (value == null || text == null) {
         throw Exception('value and text are mandatory');
@@ -183,8 +185,8 @@ class FormWidgetBuilder {
         options: options);
   }
 
-  Widget _buildDateTimePicker(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildDateTimePicker(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     InputType inputType;
     switch (fieldDescription['inputType']) {
       case 'time':
@@ -212,8 +214,8 @@ class FormWidgetBuilder {
     );
   }
 
-  Widget _buildDateRangePicker(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildDateRangePicker(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     String format = fieldDescription['format'] ?? 'yyyy-MM-dd';
     return FormBuilderDateRangePicker(
       name: id,
@@ -228,8 +230,8 @@ class FormWidgetBuilder {
     );
   }
 
-  Widget _buildSlider(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildSlider(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     return FormBuilderSlider(
       name: id,
       onChanged: _configuration.getOnChange(id),
@@ -244,8 +246,8 @@ class FormWidgetBuilder {
     );
   }
 
-  Widget _buildCheckbox(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildCheckbox(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     return FormBuilderCheckbox(
       name: id,
       initialValue: fieldDescription['initialValue'],
@@ -257,15 +259,15 @@ class FormWidgetBuilder {
     );
   }
 
-  Widget _buildDropdown(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildDropdown(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     List<DropdownMenuItem<dynamic>> options = [];
     List<dynamic>? fieldOptions = fieldDescription['options'];
     if (fieldOptions == null || fieldOptions.isEmpty) {
       throw Exception('Need at least on option');
     }
     for (dynamic option in fieldOptions) {
-      dynamic? value = option['value'];
+      dynamic value = option['value'];
       String? text = option['label'];
       if (value == null || text == null) {
         throw Exception('value and text are mandatory');
@@ -291,8 +293,8 @@ class FormWidgetBuilder {
         items: options);
   }
 
-  Widget _buildTextField(String id, String label, fieldDescription,
-      BuildContext buildContext) {
+  Widget _buildTextField(
+      String id, String label, fieldDescription, BuildContext buildContext) {
     TextInputType inputType;
     switch (fieldDescription['inputType']) {
       case 'dateTime':
@@ -361,7 +363,7 @@ class FormWidgetBuilder {
           validators.add(FormBuilderValidators.required());
           break;
         default:
-          throw Exception('Type of validator unkown:  ${type}');
+          throw Exception('Type of validator unknown: $type');
       }
     }
 
@@ -372,8 +374,8 @@ class FormWidgetBuilder {
     return FormBuilderValidators.compose(validators);
   }
 
-  FormFieldValidator<String?>? _buildStringValidators(String id,
-      fieldDescription) {
+  FormFieldValidator<String?>? _buildStringValidators(
+      String id, fieldDescription) {
     List<dynamic>? validatorsConf = fieldDescription['validators'];
 
     var customValidator = _configuration.extraValidatorsByFieldId[id];
@@ -435,7 +437,7 @@ class FormWidgetBuilder {
           validators.add(FormBuilderValidators.url());
           break;
         default:
-          throw Exception('Type of validator unkown:  ${type}');
+          throw Exception('Type of validator unknown:  $type');
       }
     }
 
