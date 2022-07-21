@@ -1,3 +1,7 @@
+# 0.0.3+1
+
+* Fix url of the example's image
+
 # 0.0.3
 
 * Add an image for the example

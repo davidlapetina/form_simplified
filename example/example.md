@@ -1,7 +1,7 @@
 # Example of form that can be generated
-Note that the label on the button are not translated due to the implementation of the 'Translate' method.
+Note that the labels on the buttons are not translated due to the implementation of the 'Translate' method.
 
-![image info](./example.png)
+![image info](https://raw.githubusercontent.com/davidlapetina/form_simplified/main/example/example.png)
 
 # Dart code
 ```dart
