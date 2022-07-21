@@ -1,4 +1,9 @@
-## Form generation with default layout
+# Example of form that can be generated
+Note that the label on the button are not translated due to the implementation of the 'Translate' method.
+
+![image info](./example.png)
+
+# Dart code
 ```dart
 
 class MyApp extends StatelessWidget {
@@ -61,11 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 ```
-# With the following json file as an asset in your project
+# Json descriptor file
 ```json
 {
-  "key": "key.form1",
-  "title": "Main title",
   "submit": {
     "label": "form1.submit",
     "icon" : "asset://assets/icons/submit.png"

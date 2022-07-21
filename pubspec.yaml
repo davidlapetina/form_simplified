@@ -1,6 +1,6 @@
 name: form_simplified
 description: Generate From in a very simplified and easy way based on a Json descriptor file and some light coding.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/davidlapetina/form_simplified
 
 environment:
