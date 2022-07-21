@@ -98,8 +98,8 @@ class WidgetBuilderResult {
 }
 
 class _FormWithDefaultLayout extends StatefulWidget {
-  FormBuilderConfiguration configuration;
-  FormSimplified easyForm;
+  final FormBuilderConfiguration configuration;
+  final FormSimplified easyForm;
 
   _FormWithDefaultLayout({required this.configuration, required this.easyForm});
 

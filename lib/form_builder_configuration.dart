@@ -3,7 +3,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 /// Type of the function to define in order to translate labels and texts
-typedef Translate = String Function(BuildContext buildContext, String fieldId, String labelOrKey);
+typedef Translate = String Function(
+    BuildContext buildContext, String fieldId, String labelOrKey);
 
 /// Type of the function to implement to get the content of the form upon validation
 typedef OnSubmit = void Function(Map<String, dynamic> formData);
@@ -23,10 +24,12 @@ class FormBuilderConfiguration {
   Translate _translate;
 
   FormBuilderConfiguration(
-      {required OnSubmit onSubmit, OnCancel? onCancel,
+      {required OnSubmit onSubmit,
+      OnCancel? onCancel,
       required FormKey formKey,
       AutovalidateMode? autovalidateMode,
-      required descriptionFileName, Translate? translate})
+      required descriptionFileName,
+      Translate? translate})
       : _onSubmit = onSubmit,
         _onCancel = onCancel,
         _descriptionFileName = descriptionFileName,
@@ -60,6 +63,6 @@ class FormBuilderConfiguration {
   Translate get translate => _translate;
 }
 
-Translate flutterI18nTranslate = (buildContext, fieldId, labelOrKey)  {
+Translate flutterI18nTranslate = (buildContext, fieldId, labelOrKey) {
   return FlutterI18n.translate(buildContext, labelOrKey);
 };
