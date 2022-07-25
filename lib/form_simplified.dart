@@ -19,7 +19,7 @@ class FormSimplified {
   static const AppLocalizationDelegate delegate =
       FormBuilderLocalizations.delegate;
 
-  String basePath;
+  final String basePath;
 
   FormSimplified._({required this.basePath});
 
